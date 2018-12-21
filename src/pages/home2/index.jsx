@@ -5,6 +5,7 @@ const columns = [{
   title: '姓名',
   dataIndex: 'name',
   key: 'name',
+  render: (text, record, index) => {console.log(text, record, index)},
 }, {
   title: '年龄',
   dataIndex: 'age',
@@ -19,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: [
+      params: [
         {
           key: '1',
           name: '胡彦斌',
@@ -41,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <div className="page">
-        <DtTable dataSource={this.state.dataSource} columns={columns}></DtTable>
+        <DtTable url="device/get_list" params={this.state.params} columns={columns}></DtTable>
       </div>
     );
   }
