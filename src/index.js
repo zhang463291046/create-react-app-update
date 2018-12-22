@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './router';
+import './api';								//第三方网络请求
 import './style/index.less';
 import * as serviceWorker from './serviceWorker';
 

@@ -1,40 +1,73 @@
 import React, { Component } from 'react';
+import { Button } from 'antd';
 import DtTable from '@/components/dtTable/dtTable';
 
-const columns = [{
-  title: '姓名',
-  dataIndex: 'name',
-  key: 'name',
-  render: (text, record, index) => {console.log(text, record, index)},
-}, {
-  title: '年龄',
-  dataIndex: 'age',
-  key: 'age',
-}, {
-  title: '住址',
-  dataIndex: 'address',
-  key: 'address',
-}];
+const columns = [
+  {
+    title: '标题1',
+    dataIndex: 'key1',
+    key: 'key1',
+  },
+  {
+    title: '标题2',
+    dataIndex: 'key2',
+    key: 'key2',
+  },
+  {
+    title: '标题3',
+    dataIndex: 'key3',
+    key: 'key3',
+  },
+  {
+    title: '标题4',
+    dataIndex: 'key4',
+    key: 'key4',
+  },
+  {
+    title: '标题5',
+    dataIndex: 'key5',
+    key: 'key5',
+  },
+  {
+    title: '标题6',
+    dataIndex: 'key6',
+    key: 'key6',
+  },
+  {
+    title: '过滤器',
+    dataIndex: 'key7',
+    key: 'key7',
+    render: (value, row, index) => {
+      const label = value < 5?'小的':'大的'
+      return <span>{label}</span>
+    }
+  },
+  {
+    title: '操作',
+    dataIndex: 'key8',
+    key: 'key8',
+    render: (value, row, index) => {
+      return (
+        <div>
+          <Button type="primary">编辑</Button>
+          <Button type="danger">删除</Button>
+        </div>
+      )  
+    }
+  }
+]
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      params: [
-        {
-          key: '1',
-          name: '胡彦斌',
-          age: 32,
-          address: '西湖区湖底公园1号'
-        },
-        {
-          key: '2',
-          name: '胡彦祖',
-          age: 42,
-          address: '西湖区湖底公园1号'
-        }
-      ]
+      params: {
+        key1: '',
+        key2: '',
+        key3: '',
+      }
     };
+    console.log(this)
   }
   handleClick() {
     console.log(React)
@@ -42,7 +75,7 @@ class App extends Component {
   render() {
     return (
       <div className="page">
-        <DtTable url="device/get_list" params={this.state.params} columns={columns}></DtTable>
+        <DtTable ref="table" url="device/get_list" params={this.state.params} columns={columns}></DtTable>
       </div>
     );
   }
