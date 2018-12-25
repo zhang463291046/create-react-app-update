@@ -28,6 +28,7 @@ mock('/index.php/device/get_list', {
   'data': {
     'list|10': [
       {
+        'id|+1': 2,
         'key1': /\d{1,2}/,
         'key2': natural(0, 100),
         'key3': natural(0, 100),

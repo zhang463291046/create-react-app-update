@@ -72,9 +72,13 @@ class App extends Component {
   handleClick() {
     console.log(React)
   }
+  handleTableSelect = () => {
+    console.log(this.refs.table.getSelect())
+  }
   render() {
     return (
       <div className="page">
+        <Button type="error" onClick={this.handleTableSelect}>批量删除</Button>
         <DtTable ref="table" url="device/get_list" params={this.state.params} columns={columns}></DtTable>
       </div>
     );
