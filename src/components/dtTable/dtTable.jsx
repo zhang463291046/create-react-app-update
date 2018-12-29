@@ -20,14 +20,13 @@ class dtTable extends Component {
     selection: [],
   }
   componentDidMount() {
-    console.log(this)
     this.getList()
   }
   getList() {
     this.setState({
       loading: true,
     })
-    React.$http.post(this.props.url,{}).then( res => {
+    this.$http.post(this.props.url,this.props.params).then( res => {
       this.setState({
         loading: false,
         arrList: res.data.list,

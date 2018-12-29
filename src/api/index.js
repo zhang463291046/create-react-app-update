@@ -1,7 +1,7 @@
 /*
 *网络请求
 */
-import React from "react"
+import React, { Component } from 'react'
 import axios from "axios"
 import {notification, message} from 'antd'
 import qs from 'qs'
@@ -66,10 +66,10 @@ var http = axios.create({
   });
 
   //使用axios
-  React.$http = http;
+  Component.prototype.$http = http;
    
   //自定义POST请求,添加拦截功能
-  React.$post = (url, params = {}) => {
+  Component.prototype.$post = (url, params = {}) => {
     return new Promise((resolve, reject) => {
       http.post(url, params).then(response => {
         if (response.code == '0') { 
