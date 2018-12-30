@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button, Modal } from 'antd';
-import DtTable from '@/components/dtTable/dtTable';
-
+import React, { Component } from 'react'
+import { Drawer, Form, Input, Button, Icon, Modal } from 'antd'
+import DtTable from '@/components/dtTable/dtTable'
+const FormItem = Form.Item
 class App extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +11,8 @@ class App extends Component {
       key1: '',
       key2: '',
       key3: '',
-    }
+    },
+    visible: true
   }
   columns = [
     {
@@ -67,11 +68,35 @@ class App extends Component {
       }
     }
   ]
+  rules = {
+    userName: [{ required: true, message: '请输入条件1!' }],
+    nickName: [{ required: true, message: '请输入条件2!' }],
+  }
   componentDidMount() {
-
+    console.log(this)
+  }
+  handleAdd = () => {
+    this.setState({
+      visible: true
+    })
   }
   handleEdit(item) {
     console.log(item)
+  }
+  handleSubmit = (e) => {
+    console.log(e)
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      console.log(err, values)
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+  onClose = () => {
+    this.setState({
+      visible: false
+    })
   }
   handleTableSelect = () => {
     const arr = this.refs.table.getSelect()
@@ -87,12 +112,156 @@ class App extends Component {
     });
   }
   render() {
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
     return (
       <div className="page">
-        <Button type="error" onClick={this.handleTableSelect}>批量删除</Button>
+        <div className="dt-search-top">
+          <div className="dt-search-cells">
+            <div className="dt-search-cell">
+              <Input v-model="params.keyword" className="dt-search-input" placeholder="输入账号、用户名" />
+            </div>
+            <div className="dt-search-cell">
+              <Input v-model="params.keyword" className="dt-search-input" placeholder="输入账号、用户名" />
+            </div>
+          </div>
+          <div className="dt-search-operation">
+            <Button type="info" onClick={this.handleAdd}>新增</Button>
+            <Button type="error" onClick={this.handleTableSelect}>批量删除</Button>
+          </div>
+        </div>
         <DtTable ref="table" url="device/get_list" params={this.state.params} columns={this.columns} selectable></DtTable>
+        <Drawer visible={this.state.visible} title="新增" onClose={this.onClose} closable={false} width={640}>
+          <Form className="drawer-form">
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('userName', {rules: this.rules.userName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件1" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+            <FormItem label="输入框" {...formItemLayout}>
+              {
+                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                (
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                )
+              }
+            </FormItem>
+          </Form>
+          <div className="form-footer">
+            <Button type="primary" onClick={this.handleSubmit} style={{ marginRight: 8 }}>确定</Button>
+            <Button onClick={this.onClose}>取消</Button>
+          </div> 
+        </Drawer>
       </div>
     );
   }
 }
-export default App;
+export default Form.create()(App);

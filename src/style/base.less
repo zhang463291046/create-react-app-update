@@ -9,17 +9,33 @@
 }
 
 /*----------容器页面表单提交部分----------------*/
-.pageForm{
-	width: 400px;
+.drawer-form{
+	overflow: auto;
+    height: calc(100% - 108px);
+    padding-bottom: 108px;
+}
+
+.form-footer{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #e9e9e9;
+  padding: 10px 16px;
+  background: #fff;
+  text-align: right;
 }
 
 /*----------列表头部搜索部分----------------*/
 .dt-search-top {
 	position: relative;
-	height: 35px;
+	min-height: 35px;
 	line-height: 35px;
 	margin: 10px 20px;
 	padding: 0px 200px 0px 0px;
+	.dt-search-cells {
+		
+	}
 	.dt-search-cell {
 		height: 35px;
 		line-height: 35px;
@@ -35,14 +51,14 @@
 	}
 	.dt-search-input{
 		width: 200px;
-		margin-left: 10px;
+		// margin-left: 10px;
 	}
 	.dt-search-select{
 		width: 200px;
-		margin-left: 10px;
+		// margin-left: 10px;
 	}
 	.dt-search-date{
 		width: 200px;
-		margin-left: 10px;
+		// margin-left: 10px;
 	}
 }
