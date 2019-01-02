@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { Drawer, Form, Input, Button, Icon, Modal } from 'antd'
+import { Drawer, Form, Input, Select, DatePicker, Radio, Checkbox, Button, Icon, Modal } from 'antd'
 import DtTable from '@/components/dtTable/dtTable'
 const FormItem = Form.Item
+const Option = Select.Option
+const RadioGroup = Radio.Group
+const CheckboxGroup = Checkbox.Group
 class App extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +15,14 @@ class App extends Component {
       key2: '',
       key3: '',
     },
-    visible: true
+    visible: true,
+    formData: {
+      form1: '',
+      form2: '',
+      form3: '',
+      form4: [],
+      form5: '',
+    },
   }
   columns = [
     {
@@ -69,22 +79,26 @@ class App extends Component {
     }
   ]
   rules = {
-    userName: [{ required: true, message: '请输入条件1!' }],
-    nickName: [{ required: true, message: '请输入条件2!' }],
+    form1: [{ required: true, message: '请输入条件1!' }],
+    form2: [{ required: true, message: '请输入条件2!' }],
+    form3: [],
   }
   componentDidMount() {
     console.log(this)
   }
   handleAdd = () => {
     this.setState({
-      visible: true
+      visible: true,
+      formData: {}
     })
   }
   handleEdit(item) {
-    console.log(item)
+    this.setState({
+      visible: true,
+      formData: {...item}
+    })
   }
   handleSubmit = (e) => {
-    console.log(e)
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       console.log(err, values)
@@ -116,11 +130,11 @@ class App extends Component {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 4 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
+        sm: { span: 20 },
       },
     };
     return (
@@ -144,113 +158,56 @@ class App extends Component {
           <Form className="drawer-form">
             <FormItem label="输入框" {...formItemLayout}>
               {
-                getFieldDecorator('userName', {rules: this.rules.userName})
+                getFieldDecorator('form1', {rules: this.rules.form1, initialValue: this.state.formData.key1})
                 (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件1" />
+                  <Input placeholder="请输入条件1" />
                 )
               }
             </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
+            <FormItem label="选择" {...formItemLayout}>
               {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                getFieldDecorator('form2', {initialValue: 'jack'})
                 (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                  <Select defaultValue="lucy" >
+                    <Option value="jack">Jack</Option>
+                    <Option value="lucy">Lucy</Option>
+                    <Option value="disabled">Disabled</Option>
+                    <Option value="Yiminghe">yiminghe</Option>
+                  </Select>
                 )
               }
             </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
+            <FormItem label="时间" {...formItemLayout}>
               {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                getFieldDecorator('form3', {})
                 (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                  <DatePicker placeholder="请选择时间" />
                 )
               }
             </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
+            <FormItem label="单选" {...formItemLayout}>
               {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                getFieldDecorator('form4', {})
                 (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                  <RadioGroup value={this.state.value}>
+                    <Radio value={1}>A</Radio>
+                    <Radio value={2}>B</Radio>
+                    <Radio value={3}>C</Radio>
+                    <Radio value={4}>D</Radio>
+                  </RadioGroup>
                 )
               }
             </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
+            <FormItem label="复选" {...formItemLayout}>
               {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
+                getFieldDecorator('form5', {})
                 (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
-                )
-              }
-            </FormItem>
-            <FormItem label="输入框" {...formItemLayout}>
-              {
-                getFieldDecorator('nickName', {rules: this.rules.nickName})
-                (
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入条件2" />
+                  <RadioGroup value={this.state.value}>
+                    <Radio value={1}>A</Radio>
+                    <Radio value={2}>B</Radio>
+                    <Radio value={3}>C</Radio>
+                    <Radio value={4}>D</Radio>
+                  </RadioGroup>
                 )
               }
             </FormItem>
