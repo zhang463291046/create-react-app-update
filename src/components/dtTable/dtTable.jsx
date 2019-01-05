@@ -1,9 +1,12 @@
+import './dtTable.less'
+
 import React, { Component } from 'react'
 import { Table, Pagination } from 'antd'
 
 class dtTable extends Component {
   constructor(props) {
     super(props)
+    console.log('dtTable',props)
   }
   static defaultProps = {
     selectable: false,
@@ -58,7 +61,7 @@ class dtTable extends Component {
       onChange: this.handleSelectChange
     }
     return (
-      <div>
+      <div className="table-wrap">
         {
           this.props.selectable ? 
           <Table columns={this.props.columns} dataSource={this.state.arrList} pagination={false} rowSelection={rowSelection}/>:
@@ -66,7 +69,7 @@ class dtTable extends Component {
         }
         {
           this.props.pageable && 
-          <Pagination onChange={this.pageChange} total={this.state.page.currTotal} showTotal={total => `共 ${total} 条`}/>
+          <Pagination className="table-page" onChange={this.pageChange} total={this.state.page.currTotal} showTotal={total => `共 ${total} 条`}/>
         }
       </div>
     );

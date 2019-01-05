@@ -86,6 +86,30 @@ class App extends Component {
   componentDidMount() {
     console.log(this)
   }
+  handleInput = ({target: {value}}) => {
+    const params = this.state.params
+    params.key1 = value
+    this.setState({
+      params: params
+    })
+  }
+  handleSelect = (value) => {
+    const params = this.state.params
+    params.key2 = value
+    this.setState({
+      params: params
+    })
+  }
+  handleDate = (moment,value) => {
+    const params = this.state.params
+    params.key3 = value
+    this.setState({
+      params: params
+    })
+  }
+  handleSearch = () => {
+    console.log(this.state)
+  }
   handleAdd = () => {
     this.setState({
       visible: true,
@@ -142,10 +166,21 @@ class App extends Component {
         <div className="dt-search-top">
           <div className="dt-search-cells">
             <div className="dt-search-cell">
-              <Input v-model="params.keyword" className="dt-search-input" placeholder="输入账号、用户名" />
+              <Input className="dt-search-input" placeholder="输入账号、用户名" onChange={this.handleInput}/>
             </div>
             <div className="dt-search-cell">
-              <Input v-model="params.keyword" className="dt-search-input" placeholder="输入账号、用户名" />
+              <Select style={{ width: 120 }} onChange={this.handleSelect}>
+                <Option value="1">条件1</Option>
+                <Option value="2">条件2</Option>
+                <Option value="3">条件3</Option>
+                <Option value="4">条件4</Option>
+              </Select>
+            </div>
+            <div className="dt-search-cell">
+              <DatePicker onChange={this.handleDate} />
+            </div>
+            <div className="dt-search-cell">
+              <Button type="ghost" onClick={this.handleSearch}>查询</Button>
             </div>
           </div>
           <div className="dt-search-operation">
