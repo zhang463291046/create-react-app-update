@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Drawer, Form, Input, Select, DatePicker, Radio, Checkbox, Button, Icon, Modal } from 'antd'
-import DtTable from '@/components/dtTable/dtTable'
+import DtSelect from '@/components/select/dtSelect'
+import DtSelectUrl from '@/components/select/dtSelectUrl'
+import DtTable from '@/components/table/dtTable'
 const FormItem = Form.Item
 const Option = Select.Option
 const RadioGroup = Radio.Group
@@ -15,7 +17,7 @@ class App extends Component {
       key2: '',
       key3: '',
     },
-    visible: true,
+    visible: false,
     formData: {
       form1: '',
       form2: '',
@@ -108,7 +110,7 @@ class App extends Component {
     })
   }
   handleSearch = () => {
-    console.log(this.state)
+    this.refs.table.handleSearch()
   }
   handleAdd = () => {
     this.setState({
@@ -166,15 +168,13 @@ class App extends Component {
         <div className="dt-search-top">
           <div className="dt-search-cells">
             <div className="dt-search-cell">
-              <Input className="dt-search-input" placeholder="输入账号、用户名" onChange={this.handleInput}/>
+              条件1：<Input className="dt-search-input" placeholder="输入账号、用户名" onChange={this.handleInput}/>
             </div>
             <div className="dt-search-cell">
-              <Select style={{ width: 120 }} onChange={this.handleSelect}>
-                <Option value="1">条件1</Option>
-                <Option value="2">条件2</Option>
-                <Option value="3">条件3</Option>
-                <Option value="4">条件4</Option>
-              </Select>
+              条件2：<DtSelect url="deviceType" onChange={this.handleSelect}></DtSelect>
+            </div>
+            <div className="dt-search-cell">
+              条件3：<DtSelectUrl url="device/get_select" onChange={this.handleSelect}></DtSelectUrl>
             </div>
             <div className="dt-search-cell">
               <DatePicker onChange={this.handleDate} />
@@ -203,7 +203,7 @@ class App extends Component {
               {
                 getFieldDecorator('form2', {initialValue: 'jack'})
                 (
-                  <Select defaultValue="lucy" >
+                  <Select>
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>
                     <Option value="disabled">Disabled</Option>
@@ -214,7 +214,7 @@ class App extends Component {
             </FormItem>
             <FormItem label="时间" {...formItemLayout}>
               {
-                getFieldDecorator('form3', {})
+                getFieldDecorator('form3', {initialValue: ''})
                 (
                   <DatePicker placeholder="请选择时间" />
                 )
@@ -222,9 +222,9 @@ class App extends Component {
             </FormItem>
             <FormItem label="单选" {...formItemLayout}>
               {
-                getFieldDecorator('form4', {})
+                getFieldDecorator('form4', {initialValue: 1})
                 (
-                  <RadioGroup value={this.state.value}>
+                  <RadioGroup>
                     <Radio value={1}>A</Radio>
                     <Radio value={2}>B</Radio>
                     <Radio value={3}>C</Radio>
@@ -235,9 +235,9 @@ class App extends Component {
             </FormItem>
             <FormItem label="复选" {...formItemLayout}>
               {
-                getFieldDecorator('form5', {})
+                getFieldDecorator('form5', {initialValue: 1})
                 (
-                  <RadioGroup value={this.state.value}>
+                  <RadioGroup>
                     <Radio value={1}>A</Radio>
                     <Radio value={2}>B</Radio>
                     <Radio value={3}>C</Radio>

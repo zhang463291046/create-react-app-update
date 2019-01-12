@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Drawer, Form, Input, Button, Icon, Modal } from 'antd'
-import DtTable from '@/components/dtTable/dtTable'
+import DtTable from '@/components/table/dtTable'
 const FormItem = Form.Item
 class App extends Component {
   constructor(props) {

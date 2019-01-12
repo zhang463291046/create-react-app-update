@@ -28,8 +28,10 @@ class dtTable extends Component {
   getList() {
     this.setState({
       loading: true,
+      selection: []
     })
-    this.$http.post(this.props.url,this.props.params).then( res => {
+    let param = Object.assign({}, this.props.params, {page: this.state.page.currCurrent});
+    this.$http.post(this.props.url,param).then( res => {
       this.setState({
         loading: false,
         arrList: res.data.list,
@@ -39,6 +41,15 @@ class dtTable extends Component {
         }
       })
     })
+  }
+  handleSearch() {
+    this.setState({
+      page: {
+        currTotal: 0,
+        currCurrent: 1
+      }
+    })
+    this.getList()
   }
   pageChange = (num) => {
     this.setState({
@@ -64,8 +75,8 @@ class dtTable extends Component {
       <div className="table-wrap">
         {
           this.props.selectable ? 
-          <Table columns={this.props.columns} dataSource={this.state.arrList} pagination={false} rowSelection={rowSelection}/>:
-          <Table columns={this.props.columns} dataSource={this.state.arrList} pagination={false}/>
+          <Table rowKey="key1" columns={this.props.columns} dataSource={this.state.arrList} pagination={false} rowSelection={rowSelection}/>:
+          <Table rowKey="key1" columns={this.props.columns} dataSource={this.state.arrList} pagination={false}/>
         }
         {
           this.props.pageable && 
