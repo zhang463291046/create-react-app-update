@@ -26,6 +26,7 @@ class dtTable extends Component {
     this.getList()
   }
   getList() {
+    console.log(this.props.params)
     this.setState({
       loading: true,
       selection: []
@@ -75,8 +76,8 @@ class dtTable extends Component {
       <div className="table-wrap">
         {
           this.props.selectable ? 
-          <Table rowKey="key1" columns={this.props.columns} dataSource={this.state.arrList} pagination={false} rowSelection={rowSelection}/>:
-          <Table rowKey="key1" columns={this.props.columns} dataSource={this.state.arrList} pagination={false}/>
+          <Table columns={this.props.columns} dataSource={this.state.arrList} pagination={false} rowSelection={rowSelection} rowKey="id"/>:
+          <Table columns={this.props.columns} dataSource={this.state.arrList} pagination={false}/>
         }
         {
           this.props.pageable && 

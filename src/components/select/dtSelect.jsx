@@ -25,7 +25,7 @@ class dtSelect extends Component {
   }
   render() {
     return (
-      <Select style={{ width: 150 }} onChange={this.handleSelect}>
+      <Select className={this.props.className} onChange={this.handleSelect} placeholder="请选择">
         {
           arrList[this.props.url].map((item,index) => {
             return <Option value={item.value} key={index}>{item.label}</Option>

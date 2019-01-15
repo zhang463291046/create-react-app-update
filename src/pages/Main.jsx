@@ -16,7 +16,7 @@ class Main extends Component {
     return (
       <Layout>
         <Sider width={200} theme="light" style={{ height: '100vh' }}>
-          {/*<SlideMenu />*/}
+          <SlideMenu />
         </Sider>
         <Layout>
           <Header style={{ background: '#fff' }}>

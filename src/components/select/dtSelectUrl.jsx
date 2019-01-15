@@ -29,7 +29,7 @@ class dtSelectUrl extends Component {
   }
   render() {
     return (
-      <Select style={{ width: 150 }} onChange={this.handleSelect}>
+      <Select className={this.props.className} onChange={this.handleSelect} placeholder="请选择">
         {
           this.state.arrList.map((item,index) => {
             return <Option value={item.value} key={index}>{item.label}</Option>

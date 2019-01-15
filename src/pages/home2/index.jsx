@@ -1,12 +1,17 @@
+import areaData from '@/components/selectAddress/areaData.js'
 import React, { Component } from 'react'
-import { Drawer, Form, Input, Select, DatePicker, Radio, Checkbox, Button, Icon, Modal } from 'antd'
+import moment from 'moment'
+import { Drawer, Form, Input, Select, Cascader, DatePicker, Radio, Checkbox, Button, Icon, Modal } from 'antd'
 import DtSelect from '@/components/select/dtSelect'
 import DtSelectUrl from '@/components/select/dtSelectUrl'
+import DtSelectDate from '@/components/select/dtSelectDate'
+import DtCascader from '@/components/selectAddress/dtCascader'
 import DtTable from '@/components/table/dtTable'
 const FormItem = Form.Item
 const Option = Select.Option
 const RadioGroup = Radio.Group
 const CheckboxGroup = Checkbox.Group
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +30,11 @@ class App extends Component {
       form4: [],
       form5: '',
     },
+  }
+  rules = {
+    form1: [{ required: true, message: '请输入条件1!' }],
+    form2: [{ required: true, message: '请输入条件2!' }],
+    form3: [],
   }
   columns = [
     {
@@ -80,11 +90,6 @@ class App extends Component {
       }
     }
   ]
-  rules = {
-    form1: [{ required: true, message: '请输入条件1!' }],
-    form2: [{ required: true, message: '请输入条件2!' }],
-    form3: [],
-  }
   componentDidMount() {
     console.log(this)
   }
@@ -168,16 +173,22 @@ class App extends Component {
         <div className="dt-search-top">
           <div className="dt-search-cells">
             <div className="dt-search-cell">
-              条件1：<Input className="dt-search-input" placeholder="输入账号、用户名" onChange={this.handleInput}/>
+              条件1：<Input className="dt-search-input" placeholder="请输入条件1" onChange={this.handleInput}/>
             </div>
             <div className="dt-search-cell">
-              条件2：<DtSelect url="deviceType" onChange={this.handleSelect}></DtSelect>
+              条件2：<DtSelect className="dt-search-select" url="deviceType" onChange={this.handleSelect}/>
             </div>
             <div className="dt-search-cell">
-              条件3：<DtSelectUrl url="device/get_select" onChange={this.handleSelect}></DtSelectUrl>
+              条件3：<DtSelectUrl className="dt-search-select" url="device/get_select" onChange={this.handleSelect}/>
             </div>
             <div className="dt-search-cell">
-              <DatePicker onChange={this.handleDate} />
+              条件4：<DatePicker className="dt-search-date" placeholder="请选择时间" onChange={this.handleDate} />
+            </div>
+            <div className="dt-search-cell">
+              条件5：<DtSelectDate onChange={this.handleSelect}/>
+            </div>
+            <div className="dt-search-cell">
+              条件6：<DtCascader onChange={this.handleSelect}/>
             </div>
             <div className="dt-search-cell">
               <Button type="ghost" onClick={this.handleSearch}>查询</Button>
@@ -201,28 +212,34 @@ class App extends Component {
             </FormItem>
             <FormItem label="选择" {...formItemLayout}>
               {
-                getFieldDecorator('form2', {initialValue: 'jack'})
+                getFieldDecorator('form2', {initialValue: '1'})
                 (
-                  <Select>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled">Disabled</Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                  </Select>
+                  <DtSelect url="deviceType"/>
                 )
               }
             </FormItem>
             <FormItem label="时间" {...formItemLayout}>
               {
-                getFieldDecorator('form3', {initialValue: ''})
+                getFieldDecorator('form3', {initialValue: moment('2015-06-01', 'YYYY-MM-DD')})
                 (
                   <DatePicker placeholder="请选择时间" />
                 )
               }
             </FormItem>
+            <FormItem label="区域" {...formItemLayout}>
+              {
+                getFieldDecorator('form4', {initialValue: ["天津", "天津市", "和平区"]})
+                (
+                  <Cascader options={areaData} placeholder="请选择地址"/>
+                )
+              }
+            </FormItem>
+            <FormItem label="区域组件化" {...formItemLayout}>
+              <DtCascader getFieldDecorator={getFieldDecorator} initialValue={["天津", "天津市", "和平区"]}/>
+            </FormItem>
             <FormItem label="单选" {...formItemLayout}>
               {
-                getFieldDecorator('form4', {initialValue: 1})
+                getFieldDecorator('form5', {initialValue: 1})
                 (
                   <RadioGroup>
                     <Radio value={1}>A</Radio>
@@ -235,14 +252,14 @@ class App extends Component {
             </FormItem>
             <FormItem label="复选" {...formItemLayout}>
               {
-                getFieldDecorator('form5', {initialValue: 1})
+                getFieldDecorator('form6', {initialValue: [1]})
                 (
-                  <RadioGroup>
-                    <Radio value={1}>A</Radio>
-                    <Radio value={2}>B</Radio>
-                    <Radio value={3}>C</Radio>
-                    <Radio value={4}>D</Radio>
-                  </RadioGroup>
+                  <CheckboxGroup>
+                    <Checkbox value={1}>A</Checkbox>
+                    <Checkbox value={2}>B</Checkbox>
+                    <Checkbox value={3}>C</Checkbox>
+                    <Checkbox value={4}>D</Checkbox>
+                  </CheckboxGroup>
                 )
               }
             </FormItem>
