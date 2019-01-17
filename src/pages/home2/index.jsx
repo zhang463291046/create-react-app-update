@@ -128,6 +128,9 @@ class App extends Component {
       visible: true,
       formData: {...item}
     })
+    this.props.form.setFieldsValue({
+      form1: item.id
+    })
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -157,7 +160,9 @@ class App extends Component {
     });
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { params } = this.state
+    const { getFieldDecorator} = this.props.form
+    console.log(1)
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -173,22 +178,22 @@ class App extends Component {
         <div className="dt-search-top">
           <div className="dt-search-cells">
             <div className="dt-search-cell">
-              条件1：<Input className="dt-search-input" placeholder="请输入条件1" onChange={this.handleInput}/>
+              条件1：<Input className="dt-search-input" placeholder="请输入条件1" onChange={e => this.setState({ params: {...params, key1: e.target.value} })}/>
             </div>
             <div className="dt-search-cell">
-              条件2：<DtSelect className="dt-search-select" url="deviceType" onChange={this.handleSelect}/>
+              条件2：<DtSelect className="dt-search-select" url="deviceType" onChange={value => this.setState({ params: {...params, key2: value} })}/>
             </div>
             <div className="dt-search-cell">
-              条件3：<DtSelectUrl className="dt-search-select" url="device/get_select" onChange={this.handleSelect}/>
+              条件3：<DtSelectUrl className="dt-search-select" url="device/get_select" onChange={value => this.setState({ params: {...params, key3: value} })}/>
             </div>
             <div className="dt-search-cell">
-              条件4：<DatePicker className="dt-search-date" placeholder="请选择时间" onChange={this.handleDate} />
+              条件4：<DatePicker className="dt-search-date" placeholder="请选择时间" onChange={(moment, value) => this.setState({ params: {...params, key4: value} })} />
             </div>
             <div className="dt-search-cell">
-              条件5：<DtSelectDate onChange={this.handleSelect}/>
+              条件5：<DtSelectDate onChange={value => this.setState({ params: {...params, key5: value[0], key6: value[1]} })}/>
             </div>
             <div className="dt-search-cell">
-              条件6：<DtCascader onChange={this.handleSelect}/>
+              条件6：<DtCascader onChange={value => this.setState({ params: {...params, key7: value} })}/>
             </div>
             <div className="dt-search-cell">
               <Button type="ghost" onClick={this.handleSearch}>查询</Button>
@@ -226,6 +231,14 @@ class App extends Component {
                 )
               }
             </FormItem>
+            <FormItem label="时间段" {...formItemLayout}>
+              {
+                getFieldDecorator('dateRange', {})
+                (
+                  <DtSelectDate initialValue={[moment('2015-06-01', 'YYYY-MM-DD'), moment('2017-11-11', 'YYYY-MM-DD')]}/>
+                )
+              }
+            </FormItem>
             <FormItem label="区域" {...formItemLayout}>
               {
                 getFieldDecorator('form4', {initialValue: ["天津", "天津市", "和平区"]})
@@ -235,7 +248,12 @@ class App extends Component {
               }
             </FormItem>
             <FormItem label="区域组件化" {...formItemLayout}>
-              <DtCascader getFieldDecorator={getFieldDecorator} initialValue={["天津", "天津市", "和平区"]}/>
+              {
+                getFieldDecorator('address', {})
+                (
+                  <DtCascader initialValue={["天津", "天津市", "和平区"]}/>
+                )
+              }
             </FormItem>
             <FormItem label="单选" {...formItemLayout}>
               {

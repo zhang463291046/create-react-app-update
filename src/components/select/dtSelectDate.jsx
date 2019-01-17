@@ -4,26 +4,39 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { DatePicker } from 'antd'
 
-class dtSelect extends Component {
+class dtDatePicker extends Component {
   constructor(props) {
     super(props)
   }
+
   static defaultProps = {
-    url: '',
+    initialValue: [null,null],
+    start_time: null,
+    end_time: null,
   }
+
   state = {
-    start_time: moment(),
-    end_time: moment(),
+    start_time: null,
+    end_time: null,
   }
+
   componentDidMount() {
-    
+
   }
+
+  // componentWillReceiveProps(nextProps){
+  //   console.log(nextProps)
+  //   this.setState({
+  //     start_time: nextProps.start_time && moment(nextProps.start_time),
+  //     end_time: nextProps.end_time && moment(nextProps.end_time),
+  //   })
+  // }
+
   options1 = (start_time) => {
     const end_time = this.state.end_time;
     if (!start_time || !end_time) {
       return false;
     }
-
     return start_time.valueOf() > end_time.valueOf();
   }
 
@@ -36,36 +49,29 @@ class dtSelect extends Component {
   }
 
   dateChange1 = (value) => {
-    console.log(value.format('YYYY-MM-DD'))
+    console.log(value)
     this.setState({
       start_time: value,
     })
-    // this.onChange('start_time', value);
-    this.props.onChange([value.format('YYYY-MM-DD'),this.state.end_time.format('YYYY-MM-DD')])
+    this.props.onChange && this.props.onChange([value,this.state.end_time])
   }
 
   dateChange2 = (value) => {
-    console.log(value)
     this.setState({
       end_time: value,
     });
-    this.props.onChange([this.state.start_time.format('YYYY-MM-DD'),value.format('YYYY-MM-DD')])
+    this.props.onChange && this.props.onChange([this.state.start_time,value])
   }
-  select (start_time, end_time) {
-    // this.onChange('end_time', value);
-    // this.$emit('on-select',[this.start_time,this.end_time]);
-    this.props.onChange([this.state.start_time,this.state.end_time])
-  }
-  handleSelect = (value) => {
-    this.props.onChange(value)
-  }
+
   render() {
-    const { start_time, end_time } = this.state;
+    const { initialValue = [null,null] } = this.props;
+    console.log(initialValue)
     return (
       <div>
         <DatePicker
           style={{ width: '200px' }}
           format="YYYY-MM-DD"
+          defaultValue={initialValue[0]}
           placeholder="请选择开始时间"
           onChange={this.dateChange1}
           disabledDate={this.options1}
@@ -73,6 +79,7 @@ class dtSelect extends Component {
         <DatePicker
           style={{ width: '200px' }}
           format="YYYY-MM-DD"
+          defaultValue={initialValue[1]}
           placeholder="请选择截止时间"
           onChange={this.dateChange2}
           disabledDate={this.options2}
@@ -82,4 +89,4 @@ class dtSelect extends Component {
   }
 }
 
-export default dtSelect;
+export default dtDatePicker;
