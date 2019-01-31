@@ -13,9 +13,6 @@ const RadioGroup = Radio.Group
 const CheckboxGroup = Checkbox.Group
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     params: {
       key1: '',
@@ -83,8 +80,8 @@ class App extends Component {
       render: (value, row, index) => {
         return (
           <div>
-            <Button type="primary" onClick={() => this.handleEdit(row)}>编辑</Button>
-            <Button type="danger" onClick={() => this.handleRemove('device/get_list',{id:row.key1})}>删除</Button>
+            <Button type="primary" style={{ marginRight: 10 }} onClick={() => this.handleEdit(row)}>编辑</Button>
+            <Button type="danger" onClick={() => this.handleRemove('device/del_list',{id:row.key1})}>删除</Button>
           </div>
         )  
       }
@@ -118,24 +115,27 @@ class App extends Component {
     this.refs.table.handleSearch()
   }
   handleAdd = () => {
+    this.props.form.resetFields();
     this.setState({
       visible: true,
       formData: {}
     })
   }
   handleEdit(item) {
+    this.props.form.resetFields();
     this.setState({
       visible: true,
       formData: {...item}
     })
     this.props.form.setFieldsValue({
-      form1: item.id
+      dateRange: [moment('2018-01-05', 'YYYY-MM-DD'),moment('2018-01-15', 'YYYY-MM-DD')]
     })
   }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       console.log(err, values)
+      console.log('开始时间',values.dateRange[0].format('YYYY-MM-DD'))
       if (!err) {
         console.log('Received values of form: ', values);
       }
@@ -149,12 +149,12 @@ class App extends Component {
   handleTableSelect = () => {
     const arr = this.refs.table.getSelect()
     Modal.confirm({
-      title: '删除数据?',
-      content: `你将要删除${arr.join(',')}数据`,
-      onOk() {
+      title: '温馨提示',
+      content: '你确定删除数据?',
+      onOk: () => {
         this.message.success('删除成功');
       },
-      onCancel() {
+      onCancel: () => {
 
       },
     });
@@ -162,7 +162,6 @@ class App extends Component {
   render() {
     const { params } = this.state
     const { getFieldDecorator} = this.props.form
-    console.log(1)
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -200,7 +199,7 @@ class App extends Component {
             </div>
           </div>
           <div className="dt-search-operation">
-            <Button type="info" onClick={this.handleAdd}>新增</Button>
+            <Button type="info" style={{ marginRight: 10 }} onClick={this.handleAdd}>新增</Button>
             <Button type="error" onClick={this.handleTableSelect}>批量删除</Button>
           </div>
         </div>
@@ -225,17 +224,17 @@ class App extends Component {
             </FormItem>
             <FormItem label="时间" {...formItemLayout}>
               {
-                getFieldDecorator('form3', {initialValue: moment('2015-06-01', 'YYYY-MM-DD')})
+                getFieldDecorator('form3', {initialValue: moment('2019-01-02', 'YYYY-MM-DD')})
                 (
                   <DatePicker placeholder="请选择时间" />
                 )
               }
             </FormItem>
-            <FormItem label="时间段" {...formItemLayout}>
+            <FormItem label="时间范围" {...formItemLayout}>
               {
-                getFieldDecorator('dateRange', {})
+                getFieldDecorator('dateRange', {initialValue: [moment('2019-01-05', 'YYYY-MM-DD'), moment('2019-01-20', 'YYYY-MM-DD')]})
                 (
-                  <DtSelectDate initialValue={[moment('2015-06-01', 'YYYY-MM-DD'), moment('2017-11-11', 'YYYY-MM-DD')]}/>
+                  <DtSelectDate/>
                 )
               }
             </FormItem>
@@ -249,13 +248,13 @@ class App extends Component {
             </FormItem>
             <FormItem label="区域组件化" {...formItemLayout}>
               {
-                getFieldDecorator('address', {})
+                getFieldDecorator('address', {initialValue: ["天津", "天津市", "和平区"]})
                 (
-                  <DtCascader initialValue={["天津", "天津市", "和平区"]}/>
+                  <DtCascader/>
                 )
               }
             </FormItem>
-            <FormItem label="单选" {...formItemLayout}>
+            <FormItem label="单选项" {...formItemLayout}>
               {
                 getFieldDecorator('form5', {initialValue: 1})
                 (
@@ -268,9 +267,9 @@ class App extends Component {
                 )
               }
             </FormItem>
-            <FormItem label="复选" {...formItemLayout}>
+            <FormItem label="复选项" {...formItemLayout}>
               {
-                getFieldDecorator('form6', {initialValue: [1]})
+                getFieldDecorator('form6', {initialValue: [1,2]})
                 (
                   <CheckboxGroup>
                     <Checkbox value={1}>A</Checkbox>
@@ -283,7 +282,7 @@ class App extends Component {
             </FormItem>
           </Form>
           <div className="form-footer">
-            <Button type="primary" onClick={this.handleSubmit} style={{ marginRight: 8 }}>确定</Button>
+            <Button type="primary" style={{ marginRight: 10 }} onClick={this.handleSubmit}>确定</Button>
             <Button onClick={this.onClose}>取消</Button>
           </div> 
         </Drawer>

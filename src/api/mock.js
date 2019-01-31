@@ -45,3 +45,9 @@ mock('/index.php/device/get_list', {
     'total': natural(0, 100)
   }
 })
+
+mock('/index.php/device/del_list', {
+  'code': 0,
+  'msg': '',
+  'data': []
+})

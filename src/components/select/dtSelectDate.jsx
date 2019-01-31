@@ -5,23 +5,17 @@ import moment from 'moment'
 import { DatePicker } from 'antd'
 
 class dtDatePicker extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  static defaultProps = {
-    initialValue: [null,null],
-    start_time: null,
-    end_time: null,
-  }
+  // static defaultProps = {
+  //   value: [null,null],
+  // }
 
   state = {
-    start_time: null,
-    end_time: null,
+    start_time: this.props.value && this.props.value[0],
+    end_time: this.props.value && this.props.value[1],
   }
 
   componentDidMount() {
-
+    
   }
 
   // componentWillReceiveProps(nextProps){
@@ -49,7 +43,6 @@ class dtDatePicker extends Component {
   }
 
   dateChange1 = (value) => {
-    console.log(value)
     this.setState({
       start_time: value,
     })
@@ -64,27 +57,27 @@ class dtDatePicker extends Component {
   }
 
   render() {
-    const { initialValue = [null,null] } = this.props;
-    console.log(initialValue)
+    const { start_time = null, end_time = null } = this.state;
     return (
-      <div>
+      <span>
         <DatePicker
           style={{ width: '200px' }}
           format="YYYY-MM-DD"
-          defaultValue={initialValue[0]}
+          defaultValue={start_time}
           placeholder="请选择开始时间"
           onChange={this.dateChange1}
           disabledDate={this.options1}
         />
+        <span> - </span>
         <DatePicker
           style={{ width: '200px' }}
           format="YYYY-MM-DD"
-          defaultValue={initialValue[1]}
+          defaultValue={end_time}
           placeholder="请选择截止时间"
           onChange={this.dateChange2}
           disabledDate={this.options2}
         />
-      </div>
+      </span>
     );
   }
 }

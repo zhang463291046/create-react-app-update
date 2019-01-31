@@ -6,14 +6,11 @@ import React, { Component } from 'react'
 import { Cascader } from 'antd'
 
 class dtCascader extends Component {
-  constructor(props) {
-    super(props)
-  }
-  static defaultProps = {
-    initialValue: []
-  }
+  // static defaultProps = {
+  //   initialValue: []
+  // }
   state = {
-
+    selectValue: this.props.value
   }
   componentDidMount() {
   
@@ -22,9 +19,9 @@ class dtCascader extends Component {
     this.props.onChange && this.props.onChange(value)
   }
   render() {
-    const { initialValue = [] } = this.props
+    const { selectValue = []  } = this.state
     return (
-      <Cascader style={{ width: '100%' }} options={areaData} defaultValue={initialValue} placeholder="请选择地址" onChange={this.handleSelect}/>
+      <Cascader style={{ width: '300px' }} options={areaData} defaultValue={selectValue} placeholder="请选择地址" onChange={this.handleSelect}/>
     );
   }
 }

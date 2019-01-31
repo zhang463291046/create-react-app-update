@@ -5,9 +5,6 @@ import { Select } from 'antd'
 const Option = Select.Option
 
 class dtSelectUrl extends Component {
-  constructor(props) {
-    super(props)
-  }
   static defaultProps = {
     url: '',
   }

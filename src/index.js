@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './router';
 import './api';								//第三方网络请求
-import './mixin'							//mixin
+import './mixin';							//mixin
+import './plugin';							//第三方插件
 import './style/index.less';
 import * as serviceWorker from './serviceWorker';
 

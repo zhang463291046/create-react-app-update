@@ -28,7 +28,7 @@ class App extends Component {
     return (
       <div className="login">
         <div className="login-main">
-          <div className="logo">智能牙刷运营平台</div>
+          <div className="logo">create-react-app管理系统</div>
           <Form className="loginForm" ref="form" onSubmit={this.handleSubmit}>
             <FormItem label="" required>
               <Input addonBefore={<Icon type="user" />} placeholder="请输入手机号码"></Input>

@@ -8,7 +8,7 @@ import qs from 'qs'
 // 模拟后台接口数据,若不需要,请注释
 import './mock.js'
 // 基础URL
-const baseUrl = process.env.NODE_ENV=="production"?"/index.php/":"/index.php/";
+const baseUrl = process.env.NODE_ENV === "production"?"/index.php/":"/index.php/";
 var http = axios.create({
   baseURL: baseUrl,
   headers: {
@@ -46,14 +46,14 @@ var http = axios.create({
     const {status, statusText, data} = response;
     console.log(data)
     // 网络请求不通
-    if(status != 200){
+    if(status !== 200){
       notification.error({
         title: '网络错误！',
         description: statusText
       });
     }
     // 接口出错
-    if(data.code!=0){
+    if(data.code!== 0){
       message.warning(data.msg);
     }
     return data;
@@ -72,7 +72,7 @@ var http = axios.create({
   Component.prototype.$post = (url, params = {}) => {
     return new Promise((resolve, reject) => {
       http.post(url, params).then(response => {
-        if (response.code == '0') { 
+        if (response.code === '0') { 
           resolve(response) 
         }
       }).catch((error) => {

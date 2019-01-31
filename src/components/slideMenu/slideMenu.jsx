@@ -8,9 +8,6 @@ const SubMenu = Menu.SubMenu
 const MenuItem = Menu.Item
 
 class slideMenu extends Component {
-  constructor(props) {
-    super(props)
-  }
   handleClick = (e) => {
     this.props.history.replace(e.key)
   }

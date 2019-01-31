@@ -9,9 +9,6 @@ const Content = Layout.Content;
 const Sider = Layout.Sider;
 
 class Main extends Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     return (
       <Layout>
@@ -20,7 +17,7 @@ class Main extends Component {
         </Sider>
         <Layout>
           <Header style={{ background: '#fff' }}>
-            vue-cli管理系统
+            create-react-app管理系统
           </Header>
           <Content>
             {this.props.children}
